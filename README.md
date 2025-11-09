@@ -3,10 +3,10 @@ Second Lab Work of IC Course
 
 ## Build
 
-Build using the Makefile inside `src/` (binary will be at `src/build/extract_color_channel`):
+Build using the Makefile inside `src/`:
 
 ```bash
-make -C src
+make
 ```
 
 ## Run
@@ -26,5 +26,5 @@ Channel index (OpenCV BGR): 0=Blue, 1=Green, 2=Red
 Remove the compiled binary:
 
 ```bash
-make -C src clean
+make clean
 ```
