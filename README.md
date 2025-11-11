@@ -45,7 +45,7 @@ The binaries are placed inside the `build/` directory:
 ### Exercise 1 — Extract Color Channel (OpenCV)
 
 ```bash
-./src/build/extract_color_channel <input_image> <output_image> <channel_index>
+./build/extract_color_channel <input_image> <output_image> <channel_index>
 ```
 
 **Channel index (BGR):**
@@ -57,7 +57,7 @@ The binaries are placed inside the `build/` directory:
 Example:
 
 ```bash
-./src/build/extract_color_channel input.jpg output_red.jpg 2
+./build/extract_color_channel images-ppm/airplane.ppm airplane_red.pgm 2
 ```
 
 ---
@@ -68,7 +68,7 @@ You can encode or decode integer sequences using Golomb coding.
 Run with:
 
 ```bash
-./src/build/golomb -m <m_value> -mode <mode> encode <list_of_integers>
+./build/golomb -m <m_value> -mode <mode> encode <list_of_integers>
 ```
 
 **Parameters:**
@@ -82,7 +82,7 @@ Run with:
 **Example (interleaved mode):**
 
 ```bash
-./src/build/golomb -m 3 -mode interleave encode 0 -1 5 10
+./build/golomb -m 3 -mode interleave encode 0 -1 5 10
 ```
 
 ---
