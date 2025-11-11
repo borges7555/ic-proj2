@@ -1,30 +1,111 @@
 # ic-proj2
+
 Second Lab Work of IC Course
 
-## Build
+This repository contains two independent components:
 
-Build using the Makefile inside `src/`:
+1. **Golomb Coding** — A C++ implementation of Golomb encoding/decoding for integers.
+2. **Extract Color Channel** — An OpenCV-based image utility to extract a single color channel.
+
+Both can be built from the same Makefile using different targets.
+
+---
+
+## 🧱 Build
+
+On the root project directory, you can build everything or each target separately:
+
+### Build both (default)
 
 ```bash
 make
 ```
 
-## Run
+### Build only the OpenCV example
 
-Run the binary directly after building:
+```bash
+make extract
+```
 
-### Ex1
+### Build only the Golomb coder
+
+```bash
+make golomb
+```
+
+The binaries are placed inside the `build/` directory:
+
+* `build/golomb`
+* `build/extract_color_channel`
+
+---
+
+## ▶️ Run
+
+### Exercise 1 — Extract Color Channel (OpenCV)
 
 ```bash
 ./src/build/extract_color_channel <input_image> <output_image> <channel_index>
 ```
 
-Channel index (OpenCV BGR): 0=Blue, 1=Green, 2=Red
+**Channel index (BGR):**
 
-## Clean
+* `0` → Blue
+* `1` → Green
+* `2` → Red
 
-Remove the compiled binary:
+Example:
+
+```bash
+./src/build/extract_color_channel input.jpg output_red.jpg 2
+```
+
+---
+
+### Exercise 3 — Golomb Coding
+
+You can encode or decode integer sequences using Golomb coding.
+Run with:
+
+```bash
+./src/build/golomb -m <m_value> -mode <mode> encode <list_of_integers>
+```
+
+**Parameters:**
+
+* `-m <m_value>` → the Golomb parameter (must be ≥ 1)
+* `-mode <mode>` → negative number handling mode:
+
+  * `sign` → sign-and-magnitude
+  * `interleave` → positive/negative interleaving (zig-zag)
+
+**Example (interleaved mode):**
+
+```bash
+./src/build/golomb -m 3 -mode interleave encode 0 -1 5 10
+```
+
+---
+
+## 🧹 Clean
+
+To remove the compiled binaries:
 
 ```bash
 make clean
 ```
+
+---
+
+## ⚙️ Notes
+
+* The Makefile automatically checks for OpenCV via `pkg-config`.
+  If the OpenCV package isn’t found, you can specify one manually:
+
+  ```bash
+  make extract PKG=opencv
+  ```
+
+* The Golomb module has **no external dependencies** and can always be built.
+
+---
