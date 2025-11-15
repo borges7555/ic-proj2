@@ -37,6 +37,7 @@ The binaries are placed inside the `build/` directory:
 
 * `build/golomb`
 * `build/extract_color_channel`
+* `build/image_transform`
 
 ---
 
@@ -58,6 +59,32 @@ Example:
 
 ```bash
 ./build/extract_color_channel images-ppm/airplane.ppm airplane_red.pgm 2
+```
+
+### Exercise 2 — Image Transformations (pixel-by-pixel)
+
+Create negatives, mirrors, rotate by multiples of 90°, and brightness changes.
+
+Usage:
+
+```bash
+./build/image_transform <input> <output> <operation> [param]
+```
+
+Operations:
+
+- `neg` — negative
+- `mirror_h` — horizontal mirror
+- `mirror_v` — vertical mirror
+- `rotate <k>` — rotate by k*90 degrees (k integer)
+- `bright <delta>` — add delta to all channels (delta can be negative)
+
+Examples:
+
+```bash
+./build/image_transform images-ppm/lena.ppm build/lena_neg.ppm neg
+./build/image_transform images-ppm/lena.ppm build/lena_rot90.ppm rotate 1
+./build/image_transform images-ppm/lena.ppm build/lena_bright_plus50.ppm bright 50
 ```
 
 ---

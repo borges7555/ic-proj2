@@ -1,12 +1,3 @@
-// Program: extract_color_channel
-// Description: Reads an image using OpenCV, extracts a specified color channel (B,G,R)
-//              pixel-by-pixel and writes out a single-channel grayscale image containing
-//              only that channel's intensity values.
-// Usage: ./extract_color_channel <input_image> <output_image> <channel_index>
-//        channel_index: 0 = Blue, 1 = Green, 2 = Red (OpenCV default BGR order)
-// Example: ./extract_color_channel imagens\ PPM/lena.ppm lena_red.pgm 2
-// Notes: The output is saved as an 8-bit single channel image. Works with 3-channel color images.
-
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <string>
