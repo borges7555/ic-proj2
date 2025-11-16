@@ -33,11 +33,18 @@ make extract
 make golomb
 ```
 
+### Build only the Image Codec
+
+```bash
+make image_codec
+```
+
 The binaries are placed inside the `build/` directory:
 
 * `build/golomb`
 * `build/extract_color_channel`
 * `build/image_transform`
+* `build/image_codec`
 
 ---
 
@@ -111,6 +118,32 @@ Run with:
 ```bash
 ./build/golomb -m 3 -mode interleave encode 0 -1 5 10
 ```
+
+---
+
+### Exercise 4 - 
+
+---
+
+### Exercise 5 — Image Codec
+
+Lossless grayscale image codec based on spatial prediction and Golomb coding of prediction residuals. The tool expects a single-channel 8-bit image as input (PGM or grayscale PNG). If you start from a color image, extract one channel first (see Exercise 1).
+
+Usage:
+
+```bash
+# Encode (mode must come first). Predictor: 0=left, 1=median (default=1)
+./build/image_codec encode <input_gray> <output.gimg> [predictor]
+
+# Decode to any image format supported by OpenCV (e.g., PNG)
+./build/image_codec decode <input.gimg> <output_image>
+```
+
+Notes:
+- Input must be single-channel 8-bit; convert or extract a channel if needed.
+- If you omit `encode`/`decode` as the first argument, you'll get "Unknown mode".
+- The encoder tries several `m` values and prints the chosen parameter and bit count.
+- Decoding is lossless (pixel-by-pixel identical to the original input).
 
 ---
 
