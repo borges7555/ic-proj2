@@ -15,7 +15,7 @@ static void print_usage(const char *prog) {
               << "  " << prog << " -m 4 -mode sign decode 00110110\n\n"
               << "Notes:\n"
               << "  - m must be >= 1\n"
-              << "  - mode 'sign' uses SIGN_MAGNITUDE; 'interleave' uses INTERLEAVED (zig-zag)\n"
+              << "  - mode 'sign' uses SIGN_MAGNITUDE; 'interleave' uses INTERLEAVED \n"
               << "  - encode prints each encoded bitstring and then decodes the concatenated stream\n"
               << "  - decode will repeatedly decode values from the provided bitstring until exhausted\n";
 }
@@ -37,13 +37,12 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    // Default values (require user to set m at least)
     uint64_t m = 0;
     NegativeMode mode = NegativeMode::INTERLEAVED;
     bool have_m = false;
     bool have_mode = false;
 
-    // Find -m and -mode flags first (order-flexible)
+
     int argi = 1;
     while (argi < argc) {
         if (std::strcmp(argv[argi], "-m") == 0) {
@@ -72,7 +71,6 @@ int main(int argc, char **argv) {
             have_mode = true;
             argi += 2;
         } else {
-            // stop scanning flags once we hit a non-flag token (operation)
             break;
         }
     }
@@ -100,7 +98,6 @@ int main(int argc, char **argv) {
         }
         std::vector<int64_t> values;
         for (; argi < argc; ++argi) {
-            // parse integer (allow negative)
             char *endptr = nullptr;
             long long v = std::strtoll(argv[argi], &endptr, 0);
             if (endptr == argv[argi] || *endptr != '\0') {
@@ -114,7 +111,6 @@ int main(int argc, char **argv) {
             return 2;
         }
 
-        // Encode each and print
         std::cout << "Parameters: m=" << m
                   << " mode=" << (mode == NegativeMode::SIGN_MAGNITUDE ? "SIGN_MAGNITUDE" : "INTERLEAVED")
                   << "\n\n";
@@ -130,7 +126,6 @@ int main(int argc, char **argv) {
         std::cout << "\nConcatenated bitstream (" << concat.size() << " bits):\n"
                   << concat << "\n\n";
 
-        // Decode concatenated stream to verify round-trip
         std::cout << "Decoding concatenated stream to verify round-trip:\n";
         size_t pos = 0;
         size_t index = 0;
@@ -160,7 +155,6 @@ int main(int argc, char **argv) {
             print_usage(argv[0]);
             return 2;
         }
-        // Collect remaining arguments into one bitstring (allow spaces)
         std::ostringstream oss;
         for (; argi < argc; ++argi) {
             if (argi > 0) oss << ' ';
@@ -168,7 +162,6 @@ int main(int argc, char **argv) {
         }
         std::string raw = oss.str();
 
-        // Remove spaces from provided bitstring (users may paste spaces)
         std::string bits;
         bits.reserve(raw.size());
         for (char c : raw) {

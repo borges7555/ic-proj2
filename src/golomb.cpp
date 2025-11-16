@@ -10,7 +10,6 @@ void BitWriter::writeBit(bool b) {
 }
 
 void BitWriter::writeBits(uint64_t value, int count) {
-    // write MSB first
     for (int i = count - 1; i >= 0; --i) {
         writeBit(((value >> i) & 1ULL) != 0ULL);
     }
