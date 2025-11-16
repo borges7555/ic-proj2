@@ -29,9 +29,9 @@ GOLOMB_BIN  := $(BUILD_DIR)/golomb
 EXTRACT_SRC := $(SRCDIR)/extract_color_channel.cpp
 EXTRACT_BIN := $(BUILD_DIR)/extract_color_channel
 
-.PHONY: all golomb extract image_transform clean help
+.PHONY: all golomb extract image_transform image_codec clean help
 
-all: golomb extract image_transform
+all: golomb extract image_transform image_codec
 
 # ensure build dir exists
 $(BUILD_DIR):
@@ -64,9 +64,20 @@ $(IMAGE_BIN): $(IMAGE_SRC) | $(BUILD_DIR)
 
 image_transform: $(IMAGE_BIN)
 
+# ---------------- image_codec (OpenCV + golomb) ----------------
+IMAGE_CODEC_SRC := $(SRCDIR)/image_codec.cpp
+IMAGE_CODEC_BIN := $(BUILD_DIR)/image_codec
+
+$(IMAGE_CODEC_BIN): $(IMAGE_CODEC_SRC) $(SRCDIR)/golomb.cpp $(GOLOMB_HDRS) | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(OPENCV_CFLAGS) $< $(SRCDIR)/golomb.cpp -o $@ $(OPENCV_LIBS)
+	@echo "Built $@"
+
+image_codec: $(IMAGE_CODEC_BIN)
+
 # ---------------- Cleanup ----------------
+
 clean:
-	@rm -f $(GOLOMB_BIN) $(EXTRACT_BIN) $(IMAGE_BIN)
+	@rm -f $(GOLOMB_BIN) $(EXTRACT_BIN) $(IMAGE_BIN) $(IMAGE_CODEC_BIN)
 	@rmdir --ignore-fail-on-non-empty $(BUILD_DIR) 2>/dev/null || true
 	@echo "Cleaned build artifacts"
 
