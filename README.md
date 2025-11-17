@@ -121,7 +121,20 @@ Run with:
 
 ---
 
-### Exercise 4 - 
+### Exercise 4 - Golomb Codec
+
+You can losslessly compress audio files into custom .glb format.
+Usage:
+
+```bash
+./golomb_codec encode input.wav output.glb
+```
+
+or:
+
+```bash
+./golomb_codec decode output.glb output.wav
+```
 
 ---
 
